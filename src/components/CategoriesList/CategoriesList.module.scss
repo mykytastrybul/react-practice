@@ -1,0 +1,29 @@
+@import "../../assets/styles/mixins.scss";
+
+.list {
+  @include container;
+  @include main-bg;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 10px;
+}
+
+.title {
+  color: #212121;
+}
+
+.btn {
+  padding: 5px;
+  background: none;
+  border: none;
+  transform: rotate(-90deg);
+  line-height: 0;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+}

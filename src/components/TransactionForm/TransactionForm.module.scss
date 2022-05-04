@@ -1,0 +1,23 @@
+@import "../../assets/styles/mixins.scss";
+
+.form {
+  @include container;
+  @include main-bg;
+  display: flex;
+  flex-direction: column;
+
+  & label {
+    margin-top: 2px;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(117, 117, 117);
+    border-radius: 3px;
+  }
+}
+
+.title {
+  padding: 5px;
+  color: rgb(117, 117, 117);
+  font-size: 12px;
+}

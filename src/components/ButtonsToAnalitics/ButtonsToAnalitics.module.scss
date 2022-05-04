@@ -1,0 +1,16 @@
+@import "../../assets/styles/mixins.scss";
+
+.container {
+  @include container;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(243, 247, 191);
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  padding: 5px 15px;
+}
