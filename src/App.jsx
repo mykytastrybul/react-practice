@@ -11,6 +11,27 @@ class App extends Component {
     incomes: [],
   };
 
+  componentDidMount() {
+    const costs = JSON.parse(localStorage.getItem("costs"));
+    const incomes = JSON.parse(localStorage.getItem("incomes"));
+
+    if (costs) {
+      this.setState({ costs: costs });
+    }
+    if (incomes) {
+      this.setState({ incomes: incomes });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.costs !== this.state.costs) {
+      localStorage.setItem("costs", JSON.stringify(this.state.costs));
+    }
+    if (prevState.incomes !== this.state.incomes) {
+      localStorage.setItem("incomes", JSON.stringify(this.state.incomes));
+    }
+  }
+
   toggleMain = (activePage = "main") => {
     this.setState({
       activePage,
