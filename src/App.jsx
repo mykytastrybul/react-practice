@@ -32,6 +32,12 @@ class App extends Component {
     }
   }
 
+  deleteTransaction = (transType, id) => {
+    this.setState((prev) => ({
+      [transType]: prev[transType].filter((el) => el.id !== id),
+    }));
+  };
+
   toggleMain = (activePage = "main") => {
     this.setState({
       activePage,
@@ -60,6 +66,7 @@ class App extends Component {
       case "costs":
         return (
           <TransactionsHistoryPage
+            deleteTransaction={this.deleteTransaction}
             toggleMain={this.toggleMain}
             transactions={costs}
             transType="costs"
@@ -69,6 +76,7 @@ class App extends Component {
       case "incomes":
         return (
           <TransactionsHistoryPage
+            deleteTransaction={this.deleteTransaction}
             toggleMain={this.toggleMain}
             transactions={incomes}
             transType="incomes"

@@ -14,8 +14,7 @@ class TransactionsHistoryItem extends Component {
   };
 
   render() {
-    const { transaction } = this.props;
-    const { isContextOpen } = this.state;
+    const { transaction, contextId, transType, deleteTransaction } = this.props;
     return (
       <li className={s.item} key={transaction.id}>
         <div>
@@ -37,14 +36,14 @@ class TransactionsHistoryItem extends Component {
           <ButtonWithIcon
             icon="#icon-navigation-more"
             className={s.btn}
-            cbOnClick={this.handleToggleContext}
+            cbOnClick={() => this.props.changeContextId(transaction.id)}
           />
-          {isContextOpen && (
+          {transaction.id === contextId && (
             <ul className={s.contextContainer}>
               <li>
                 <button
                   className={s.buttonContext}
-                  onClick={() => {}}
+                  onClick={() => deleteTransaction(transType, transaction.id)}
                   type="button"
                 >
                   Удалить

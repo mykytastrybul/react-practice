@@ -3,16 +3,22 @@
 .list {
   @include container;
   @include main-bg;
+  padding: 0;
+  padding-bottom: 20px;
+  width: 320px;
 }
 
 .item {
   display: flex;
   justify-content: space-between;
   padding: 3px 10px;
+  border-bottom: 1px solid rgb(43, 42, 42);
 }
 
 .title {
   color: #212121;
+  cursor: pointer;
+  width: 100%;
 }
 
 .btn {
