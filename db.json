@@ -1,0 +1,106 @@
+{
+  "incomes": [
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 1
+    },
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 2
+    },
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 3
+    },
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 4
+    }
+  ],
+  "costs": [
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 1
+    },
+    {
+      "date": "2022-05-06",
+      "time": "14:44",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 3
+    },
+    {
+      "date": "2022-05-06",
+      "time": "15:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 4
+    },
+    {
+      "date": "2022-05-06",
+      "time": "15:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 5
+    },
+    {
+      "date": "2022-05-06",
+      "time": "15:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 6
+    },
+    {
+      "date": "2022-05-06",
+      "time": "15:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 7
+    }
+  ]
+}

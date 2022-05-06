@@ -1,0 +1,23 @@
+.contextWrap {
+  position: relative;
+}
+.contextContainer {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  top: 100%;
+  width: 110px;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  -webkit-box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
+    -1px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
+    -1px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+.buttonContext {
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
