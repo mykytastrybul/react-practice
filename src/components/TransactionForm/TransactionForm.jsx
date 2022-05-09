@@ -4,7 +4,7 @@ import ButtonWithIcon from "../shared/ButtonWithIcon/ButtonWithIcon";
 import { format } from "date-fns";
 import { uk } from "date-fns/locale";
 import CategoriesList from "../CategoriesList/CategoriesList";
-import { addTransactionApi } from "../../utils/apiService";
+// import { addTransactionApi } from "../../utils/apiService";
 
 const curDate = format(new Date(), "yyyy-MM-dd", {
   locale: uk,
@@ -31,9 +31,7 @@ class TransactionForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    addTransactionApi(this.state.transType, this.state).then((transaction) =>
-      this.props.cbOnSubmit(transaction)
-    );
+    this.props.cbOnSubmit(this.state);
   };
 
   setCategory = (category) => {

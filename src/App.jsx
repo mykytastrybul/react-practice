@@ -1,9 +1,13 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import MainPage from "./components/MainPage/MainPage";
 // import CategoriesList from "./components/CategoriesList/CategoriesList";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
 // import data from "./data/data.json";
-import { getTransactionsApi, removeTransactionApi } from "./utils/apiService";
+import {
+  addTransactionApi,
+  getTransactionsApi,
+  removeTransactionApi,
+} from "./utils/apiService";
 
 const loaderStyles = {
   position: "absolute",
@@ -12,99 +16,104 @@ const loaderStyles = {
   fontSize: "50px",
 };
 
-class App extends Component {
-  state = {
-    activePage: "main",
-    costs: [],
-    incomes: [],
-    isLoading: false,
-    error: null,
+const App = () => {
+  const [activePage, setActivePage] = useState("main");
+  const [costs, setCosts] = useState([]);
+  const [incomes, setIncomes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  if (error) console.log(error);
+
+  const deleteTransaction = (transType, id) => {
+    setIsLoading(true);
+    removeTransactionApi({ transType, id })
+      .then(() => {
+        transType === "costs" &&
+          setCosts((prev) => prev.filter((el) => el.id !== id));
+        transType === "incomes" &&
+          setIncomes((prev) => prev.filter((el) => el.id !== id));
+      })
+      .catch((err) => setError(err))
+      .finally(() => setIsLoading(false));
   };
 
-  componentDidMount() {
-    const getTransactions = (transType) => {
-      this.setState({ isLoading: true });
-      getTransactionsApi(transType)
-        .then((transactions) => {
-          this.setState({ [transType]: transactions });
-        })
-        .catch((error) => this.setState({ error }))
-        .finally(() => this.setState({ isLoading: false }));
-    };
-    getTransactions("costs");
-    getTransactions("incomes");
-  }
-
-  deleteTransaction = (transType, id) => {
-    this.setState({ isLoading: true });
-    removeTransactionApi(transType, id)
-      .then(() =>
-        this.setState((prev) => ({
-          [transType]: prev[transType].filter((el) => el.id !== id),
-        }))
-      )
-      .catch((error) => this.setState({ error }))
-      .finally(() => this.setState({ isLoading: false }));
+  const toggleMain = (activePage = "main") => {
+    setActivePage(activePage);
   };
 
-  toggleMain = (activePage = "main") => {
-    this.setState({
-      activePage,
-    });
-  };
-
-  addTransaction = (transaction) => {
+  const addTransaction = (transaction) => {
     const { transType } = transaction;
-    this.setState((prev) => ({
-      [transType]: [...prev[transType], transaction],
-    }));
+    setIsLoading(true);
+    addTransactionApi(transType, transaction)
+      .then((transaction) => {
+        transType === "costs" && setCosts((prev) => [...prev, transaction]);
+        transType === "incomes" && setIncomes((prev) => [...prev, transaction]);
+      })
+      .catch((err) => setError(err))
+      .finally(() => setIsLoading(false));
   };
 
-  render() {
-    const { activePage, costs, incomes, isLoading } = this.state;
+  useEffect(() => {
+    const getTransactions = async () => {
+      setIsLoading(true);
+      try {
+        try {
+          const costs = await getTransactionsApi("costs");
+          setCosts(costs);
+        } catch (error) {
+          setError(error);
+        }
+        try {
+          const incomes = await getTransactionsApi("incomes");
+          setIncomes(incomes);
+        } catch (error) {
+          setError(error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getTransactions();
+  }, []);
 
-    switch (activePage) {
-      case "main":
-        return (
-          <>
-            {isLoading && <h2 style={loaderStyles}>Loading</h2>}
-            <MainPage
-              toggleMain={this.toggleMain}
-              addTransaction={this.addTransaction}
-            />
-          </>
-        );
+  switch (activePage) {
+    case "main":
+      return (
+        <>
+          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          <MainPage toggleMain={toggleMain} addTransaction={addTransaction} />
+        </>
+      );
 
-      case "costs":
-        return (
-          <>
-            {isLoading && <h2 style={loaderStyles}>Loading</h2>}
-            <TransactionsHistoryPage
-              deleteTransaction={this.deleteTransaction}
-              toggleMain={this.toggleMain}
-              transactions={costs}
-              transType="costs"
-            />
-          </>
-        );
+    case "costs":
+      return (
+        <>
+          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          <TransactionsHistoryPage
+            deleteTransaction={deleteTransaction}
+            toggleMain={toggleMain}
+            transactions={costs}
+            transType="costs"
+          />
+        </>
+      );
 
-      case "incomes":
-        return (
-          <>
-            {isLoading && <h2 style={loaderStyles}>Loading</h2>}
-            <TransactionsHistoryPage
-              deleteTransaction={this.deleteTransaction}
-              toggleMain={this.toggleMain}
-              transactions={incomes}
-              transType="incomes"
-            />
-          </>
-        );
+    case "incomes":
+      return (
+        <>
+          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          <TransactionsHistoryPage
+            deleteTransaction={deleteTransaction}
+            toggleMain={toggleMain}
+            transactions={incomes}
+            transType="incomes"
+          />
+        </>
+      );
 
-      default:
-        return;
-    }
+    default:
+      return;
   }
-}
+};
 
 export default App;
