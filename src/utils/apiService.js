@@ -13,3 +13,11 @@ export function addTransactionApi(transType, transaction) {
 export function removeTransactionApi({ transType, id }) {
   return axios.delete(transType + "/" + id);
 }
+
+export function addCategoryApi({ transType, category }) {
+  return axios.post(transType + "Cats", category).then(({ data }) => data);
+}
+
+export function getCategoriesApi({ transType }) {
+  return axios.get(transType + "Cats").then(({ data }) => data);
+}

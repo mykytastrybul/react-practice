@@ -129,6 +129,7 @@ class TransactionForm extends Component {
       <CategoriesList
         onGoBack={toggleCategoryList}
         setCategory={this.setCategory}
+        transType={transType}
       />
     );
   }

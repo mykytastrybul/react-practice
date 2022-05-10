@@ -33,3 +33,8 @@
   width: 15px;
   height: 15px;
 }
+
+.form {
+  @include container;
+  @include main-bg;
+}

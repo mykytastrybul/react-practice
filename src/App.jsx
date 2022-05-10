@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MainPage from "./components/MainPage/MainPage";
 // import CategoriesList from "./components/CategoriesList/CategoriesList";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
+import { useLoaderContext } from "./context/LoaderProvider";
 // import data from "./data/data.json";
 import {
   addTransactionApi,
@@ -9,18 +10,12 @@ import {
   removeTransactionApi,
 } from "./utils/apiService";
 
-const loaderStyles = {
-  position: "absolute",
-  left: "50%",
-  transform: "translateX(-50%)",
-  fontSize: "50px",
-};
-
 const App = () => {
+  const setIsLoading = useLoaderContext();
   const [activePage, setActivePage] = useState("main");
   const [costs, setCosts] = useState([]);
   const [incomes, setIncomes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   if (error) console.log(error);
 
@@ -80,7 +75,7 @@ const App = () => {
     case "main":
       return (
         <>
-          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
           <MainPage toggleMain={toggleMain} addTransaction={addTransaction} />
         </>
       );
@@ -88,7 +83,7 @@ const App = () => {
     case "costs":
       return (
         <>
-          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
           <TransactionsHistoryPage
             deleteTransaction={deleteTransaction}
             toggleMain={toggleMain}
@@ -101,7 +96,7 @@ const App = () => {
     case "incomes":
       return (
         <>
-          {isLoading && <h2 style={loaderStyles}>Loading</h2>}
+          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
           <TransactionsHistoryPage
             deleteTransaction={deleteTransaction}
             toggleMain={toggleMain}

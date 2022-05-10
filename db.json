@@ -109,6 +109,16 @@
       "comment": "",
       "transType": "incomes",
       "id": 11
+    },
+    {
+      "date": "2022-05-10",
+      "time": "15:34",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 12
     }
   ],
   "costs": [
@@ -161,6 +171,50 @@
       "comment": "",
       "transType": "costs",
       "id": 15
+    },
+    {
+      "date": "2022-05-10",
+      "time": "15:16",
+      "category": "Category One",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 16
+    },
+    {
+      "date": "2022-05-10",
+      "time": "15:34",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 17
+    }
+  ],
+  "incomesCats": [
+    {
+      "title": "Category 1",
+      "id": 1
+    }
+  ],
+  "costsCats": [
+    {
+      "title": "Category One",
+      "id": 1
+    },
+    {
+      "title": "Category 2",
+      "id": 2
+    },
+    {
+      "title": "Category 3",
+      "id": 3
+    },
+    {
+      "title": "Category 4",
+      "id": 4
     }
   ]
 }
