@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
-// import CategoriesList from "./components/CategoriesList/CategoriesList";
+import TransactionForm from "./components/TransactionForm/TransactionForm";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
 import { useLoaderContext } from "./context/LoaderProvider";
-// import data from "./data/data.json";
 import {
   addTransactionApi,
   getTransactionsApi,
@@ -15,8 +15,8 @@ const App = () => {
   const [activePage, setActivePage] = useState("main");
   const [costs, setCosts] = useState([]);
   const [incomes, setIncomes] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   if (error) console.log(error);
 
   const deleteTransaction = (transType, id) => {
@@ -69,46 +69,40 @@ const App = () => {
       }
     };
     getTransactions();
+    // eslint-disable-next-line
   }, []);
 
-  switch (activePage) {
-    case "main":
-      return (
-        <>
-          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
           <MainPage toggleMain={toggleMain} addTransaction={addTransaction} />
-        </>
-      );
-
-    case "costs":
-      return (
-        <>
-          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
+        }
+      >
+        <Route
+          path="/:transType"
+          element={
+            <TransactionForm
+              deleteTransaction={deleteTransaction}
+              transactions={costs}
+              transType="costs"
+            />
+          }
+        />
+      </Route>
+      <Route
+        path="/transactions/:transType"
+        element={
           <TransactionsHistoryPage
             deleteTransaction={deleteTransaction}
-            toggleMain={toggleMain}
             transactions={costs}
             transType="costs"
           />
-        </>
-      );
-
-    case "incomes":
-      return (
-        <>
-          {/* {isLoading && <h2 style={loaderStyles}>Loading</h2>} */}
-          <TransactionsHistoryPage
-            deleteTransaction={deleteTransaction}
-            toggleMain={toggleMain}
-            transactions={incomes}
-            transType="incomes"
-          />
-        </>
-      );
-
-    default:
-      return;
-  }
+        }
+      />
+    </Routes>
+  );
 };
 
 export default App;

@@ -1,3 +1,4 @@
+import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
@@ -10,7 +11,9 @@ root.render(
   <React.StrictMode>
     <LoaderProvider>
       <CategoriesProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </CategoriesProvider>
     </LoaderProvider>
   </React.StrictMode>
