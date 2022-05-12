@@ -37,7 +37,6 @@ const CategoriesProvider = ({ children }) => {
       }
     };
     getCategories();
-    // eslint-disable-next-line
   }, []);
 
   return (

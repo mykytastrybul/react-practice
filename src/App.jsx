@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
-import TransactionForm from "./components/TransactionForm/TransactionForm";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
 import { useLoaderContext } from "./context/LoaderProvider";
 import {
@@ -12,12 +11,11 @@ import {
 
 const App = () => {
   const setIsLoading = useLoaderContext();
-  const [activePage, setActivePage] = useState("main");
   const [costs, setCosts] = useState([]);
   const [incomes, setIncomes] = useState([]);
   const [error, setError] = useState(null);
-
-  if (error) console.log(error);
+  const transactions = { costs, incomes };
+  if (error) console.log("error", error);
 
   const deleteTransaction = (transType, id) => {
     setIsLoading(true);
@@ -30,10 +28,6 @@ const App = () => {
       })
       .catch((err) => setError(err))
       .finally(() => setIsLoading(false));
-  };
-
-  const toggleMain = (activePage = "main") => {
-    setActivePage(activePage);
   };
 
   const addTransaction = (transaction) => {
@@ -74,30 +68,13 @@ const App = () => {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <MainPage toggleMain={toggleMain} addTransaction={addTransaction} />
-        }
-      >
-        <Route
-          path="/:transType"
-          element={
-            <TransactionForm
-              deleteTransaction={deleteTransaction}
-              transactions={costs}
-              transType="costs"
-            />
-          }
-        />
-      </Route>
+      <Route path="/*" element={<MainPage addTransaction={addTransaction} />} />
       <Route
         path="/transactions/:transType"
         element={
           <TransactionsHistoryPage
             deleteTransaction={deleteTransaction}
-            transactions={costs}
-            transType="costs"
+            transactions={transactions}
           />
         }
       />

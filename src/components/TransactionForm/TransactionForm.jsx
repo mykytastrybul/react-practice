@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import s from "./TransactionForm.module.scss";
 import ButtonWithIcon from "../shared/ButtonWithIcon/ButtonWithIcon";
 import { format } from "date-fns";
 import { uk } from "date-fns/locale";
-import CategoriesList from "../CategoriesList/CategoriesList";
-import { useNavigate } from "react-router-dom";
-// import { addTransactionApi } from "../../utils/apiService";
 
 const curDate = format(new Date(), "yyyy-MM-dd", {
   locale: uk,
@@ -13,8 +11,9 @@ const curDate = format(new Date(), "yyyy-MM-dd", {
 
 const curTime = format(new Date(), "HH:mm");
 
-const TransactionForm = (toggleCategoryList, isCategoryOpen, cbOnSubmit) => {
+const TransactionForm = ({ category: newCategory, cbOnSubmit }) => {
   const navigate = useNavigate();
+  const { transType } = useParams();
   const [form, setForm] = useState({
     date: curDate,
     time: curTime,
@@ -22,12 +21,11 @@ const TransactionForm = (toggleCategoryList, isCategoryOpen, cbOnSubmit) => {
     sum: "",
     currency: "UAH",
     comment: "",
-    transType: "",
+    transType: transType,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "transType") navigate("/" + value);
 
     setForm((prev) => {
@@ -40,14 +38,21 @@ const TransactionForm = (toggleCategoryList, isCategoryOpen, cbOnSubmit) => {
     cbOnSubmit(form);
   };
 
-  const setCategory = (category) => {
-    setForm((prev) => ({ ...prev, category }));
-    toggleCategoryList();
+  const openCategoryList = () => {
+    navigate("list");
   };
+  const { date, time, category, sum, currency, comment } = form;
 
-  const { date, time, category, sum, currency, comment, transType } = form;
+  useEffect(() => {
+    if (!newCategory) return;
+    setForm((prev) => ({ ...prev, category: newCategory }));
+  }, [newCategory]);
 
-  return !isCategoryOpen ? (
+  useEffect(() => {
+    transType !== "incomes" && transType !== "costs" && navigate("/costs");
+  }, [transType, navigate]);
+
+  return (
     <form className={s.form} onSubmit={handleSubmit}>
       <ButtonWithIcon icon={"#icon-checkmark"} type={"submit"} />
 
@@ -86,7 +91,7 @@ const TransactionForm = (toggleCategoryList, isCategoryOpen, cbOnSubmit) => {
           name="category"
           type="button"
           value={category}
-          onClick={toggleCategoryList}
+          onClick={openCategoryList}
         />
       </label>
       <label>
@@ -118,12 +123,6 @@ const TransactionForm = (toggleCategoryList, isCategoryOpen, cbOnSubmit) => {
         />
       </label>
     </form>
-  ) : (
-    <CategoriesList
-      onGoBack={toggleCategoryList}
-      setCategory={setCategory}
-      transType={transType}
-    />
   );
 };
 

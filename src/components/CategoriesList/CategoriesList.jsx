@@ -4,10 +4,13 @@ import sprite from "../../assets/images/sprite.svg";
 import ButtonWithIcon from "../shared/ButtonWithIcon/ButtonWithIcon";
 import { useContext, useState } from "react";
 import { CategoryContext } from "../../context/CategoriesProvider";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CategoriesList = ({ onGoBack, setCategory, transType }) => {
+const CategoriesList = ({ setCategory }) => {
+  const navigate = useNavigate();
   const [newCategory, setNewCategory] = useState("");
   const { incomesCats, costsCats, addCategory } = useContext(CategoryContext);
+  const { transType } = useParams();
 
   const handleChange = (e) => {
     setNewCategory(e.target.value);
@@ -15,7 +18,6 @@ const CategoriesList = ({ onGoBack, setCategory, transType }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newCategory);
     addCategory({ transType, category: { title: newCategory } });
   };
 
@@ -28,11 +30,21 @@ const CategoriesList = ({ onGoBack, setCategory, transType }) => {
 
   return (
     <>
-      <HeaderWihtGoBack title="Категорії" withBtn onGoBack={onGoBack} />
+      <HeaderWihtGoBack
+        title="Категорії"
+        withBtn
+        onGoBack={() => navigate(-1)}
+      />
       <ul className={s.list}>
         {categories.map(({ id, title }) => (
           <li className={s.item} key={id}>
-            <span className={s.title} onClick={() => setCategory(title)}>
+            <span
+              className={s.title}
+              onClick={() => {
+                setCategory(title);
+                navigate(-1);
+              }}
+            >
               {title}
             </span>
             <button className={s.btn} type="button">

@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import HeaderWihtGoBack from "../shared/HeaderWihtGoBack/HeaderWihtGoBack";
 import TransactionsHistoryItem from "../TransactionsHistoryItem/TransactionsHistoryItem";
+import { useNavigate, useParams } from "react-router-dom";
 import s from "./TransactionsHistoryPage.module.scss";
 
-const TransactionsHistoryPage = ({
-  transactions,
-  transType,
-  deleteTransaction,
-}) => {
-  const [contextId, setContextId] = useState(null);
+const TransactionsHistoryPage = ({ transactions, deleteTransaction }) => {
   const navigate = useNavigate();
+  const { transType } = useParams();
+
+  const [contextId, setContextId] = useState(null);
 
   const changeContextId = (id) => {
     setContextId(id);
@@ -26,7 +24,7 @@ const TransactionsHistoryPage = ({
         onGoBack={onGoBack}
       />
       <ul className={s.list}>
-        {transactions.map((transaction) => (
+        {transactions[transType].map((transaction) => (
           <TransactionsHistoryItem
             transType={transType}
             deleteTransaction={deleteTransaction}
