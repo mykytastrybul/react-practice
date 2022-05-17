@@ -31,26 +31,6 @@
       "id": 3
     },
     {
-      "date": "2022-05-06",
-      "time": "14:44",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "incomes",
-      "id": 4
-    },
-    {
-      "date": "2022-05-09",
-      "time": "14:50",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "incomes",
-      "id": 5
-    },
-    {
       "date": "2022-05-09",
       "time": "14:50",
       "category": "різне",
@@ -59,26 +39,6 @@
       "comment": "",
       "transType": "incomes",
       "id": 6
-    },
-    {
-      "date": "2022-05-09",
-      "time": "14:50",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "incomes",
-      "id": 7
-    },
-    {
-      "date": "2022-05-09",
-      "time": "14:50",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "incomes",
-      "id": 8
     },
     {
       "date": "2022-05-09",
@@ -119,6 +79,26 @@
       "comment": "",
       "transType": "incomes",
       "id": 12
+    },
+    {
+      "date": "2022-05-16",
+      "time": "15:27",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 13
+    },
+    {
+      "date": "2022-05-17",
+      "time": "14:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "incomes",
+      "id": 14
     }
   ],
   "costs": [
@@ -163,16 +143,6 @@
       "id": 11
     },
     {
-      "date": "2022-05-09",
-      "time": "15:10",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "costs",
-      "id": 15
-    },
-    {
       "date": "2022-05-10",
       "time": "15:16",
       "category": "Category One",
@@ -191,12 +161,54 @@
       "comment": "",
       "transType": "costs",
       "id": 17
+    },
+    {
+      "date": "2022-05-16",
+      "time": "15:27",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 18
+    },
+    {
+      "date": "2022-05-16",
+      "time": "15:27",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 19
+    },
+    {
+      "date": "2022-05-17",
+      "time": "14:36",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 20
     }
   ],
   "incomesCats": [
     {
       "title": "Category 1",
       "id": 1
+    },
+    {
+      "title": "Category 2",
+      "id": 2
+    },
+    {
+      "title": "Category 3",
+      "id": 3
+    },
+    {
+      "title": "Category 4",
+      "id": 4
     }
   ],
   "costsCats": [

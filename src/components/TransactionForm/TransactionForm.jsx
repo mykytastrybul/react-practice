@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Component, useEffect, useState } from "react";
 import s from "./TransactionForm.module.scss";
 import ButtonWithIcon from "../shared/ButtonWithIcon/ButtonWithIcon";
 import { format } from "date-fns";
 import { uk } from "date-fns/locale";
+import CategoriesList from "../CategoriesList/CategoriesList";
+import { useNavigate, useParams } from "react-router-dom";
+// import { addTransactionApi } from "../../utils/apiService";
 
 const curDate = format(new Date(), "yyyy-MM-dd", {
   locale: uk,
@@ -11,9 +13,10 @@ const curDate = format(new Date(), "yyyy-MM-dd", {
 
 const curTime = format(new Date(), "HH:mm");
 
-const TransactionForm = ({ category: newCategory, cbOnSubmit }) => {
+const TransactionForm = ({ category: newCategoty, cbOnSubmit }) => {
   const navigate = useNavigate();
   const { transType } = useParams();
+
   const [form, setForm] = useState({
     date: curDate,
     time: curTime,
@@ -21,13 +24,12 @@ const TransactionForm = ({ category: newCategory, cbOnSubmit }) => {
     sum: "",
     currency: "UAH",
     comment: "",
-    transType: transType,
+    transType,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "transType") navigate("/" + value);
-
     setForm((prev) => {
       return { ...prev, [name]: value };
     });
@@ -41,16 +43,18 @@ const TransactionForm = ({ category: newCategory, cbOnSubmit }) => {
   const openCategoryList = () => {
     navigate("list");
   };
-  const { date, time, category, sum, currency, comment } = form;
 
   useEffect(() => {
-    if (!newCategory) return;
-    setForm((prev) => ({ ...prev, category: newCategory }));
-  }, [newCategory]);
+    if (!newCategoty) return;
+
+    setForm((prev) => ({ ...prev, category: newCategoty }));
+  }, [newCategoty]);
 
   useEffect(() => {
     transType !== "incomes" && transType !== "costs" && navigate("/costs");
-  }, [transType, navigate]);
+  }, [navigate, transType]);
+
+  const { date, time, category, sum, currency, comment } = form;
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
