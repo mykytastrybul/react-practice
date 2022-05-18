@@ -6,7 +6,8 @@ export function getTransactionsApi(transType) {
   return axios.get(transType).then(({ data }) => data);
 }
 
-export function addTransactionApi(transType, transaction) {
+export function addTransactionApi(transaction) {
+  const { transType } = transaction;
   return axios.post(transType, transaction).then(({ data }) => data);
 }
 

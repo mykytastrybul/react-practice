@@ -4,30 +4,16 @@ import ButtonsToAnalitics from "../ButtonsToAnalitics/ButtonsToAnalitics";
 import { Navigate, Route, Routes } from "react-router-dom";
 import CategoriesList from "../CategoriesList/CategoriesList";
 import { useState } from "react";
-import { addTransactionApi } from "../../utils/apiService";
-import { useLoaderContext } from "../../context/LoaderProvider";
 import { useDispatch } from "react-redux";
-import {
-  addCosts,
-  addIncomes,
-} from "../../redux/transactions/transactionsActions";
+import { addTransaction } from "../../redux/transactions/transactionOperations";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const setIsLoading = useLoaderContext();
 
   const [category, setCategory] = useState("");
 
-  const addTransaction = (transaction) => {
-    const { transType } = transaction;
-    setIsLoading(true);
-    addTransactionApi(transType, transaction)
-      .then((transaction) => {
-        transType === "costs" && dispatch(addCosts(transaction));
-        transType === "incomes" && dispatch(addIncomes(transaction));
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+  const handleAddTransaction = (transaction) => {
+    dispatch(addTransaction(transaction));
   };
 
   return (
@@ -38,7 +24,10 @@ const MainPage = () => {
         element={
           <>
             <HeaderWihtGoBack title={"Журнал видатків"} />
-            <TransactionForm cbOnSubmit={addTransaction} category={category} />
+            <TransactionForm
+              cbOnSubmit={handleAddTransaction}
+              category={category}
+            />
             <ButtonsToAnalitics />
           </>
         }

@@ -10,12 +10,10 @@ import {
   addCostsCats,
   addIncomesCats,
 } from "../../redux/categories/categoriesSlice";
-import { useLoaderContext } from "../../context/LoaderProvider";
 
 const CategoriesList = ({ setCategory }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const setIsLoading = useLoaderContext();
   const categories = useSelector((state) => state.categories);
   const [newCategory, setNewCategory] = useState("");
   const { transType } = useParams();
@@ -25,13 +23,10 @@ const CategoriesList = ({ setCategory }) => {
   };
 
   const addCategory = ({ transType, category }) => {
-    setIsLoading(true);
-    addCategoryApi({ transType, category })
-      .then((category) => {
-        transType === "incomes" && dispatch(addIncomesCats(category));
-        transType === "costs" && dispatch(addCostsCats(category));
-      })
-      .finally(() => setIsLoading(false));
+    addCategoryApi({ transType, category }).then((category) => {
+      transType === "incomes" && dispatch(addIncomesCats(category));
+      transType === "costs" && dispatch(addCostsCats(category));
+    });
   };
 
   const handleSubmit = (e) => {

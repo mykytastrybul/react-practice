@@ -58,16 +58,6 @@
       "currency": "UAH",
       "comment": "",
       "transType": "incomes",
-      "id": 10
-    },
-    {
-      "date": "2022-05-09",
-      "time": "15:10",
-      "category": "різне",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "incomes",
       "id": 11
     },
     {
@@ -144,16 +134,6 @@
     },
     {
       "date": "2022-05-10",
-      "time": "15:16",
-      "category": "Category One",
-      "sum": "",
-      "currency": "UAH",
-      "comment": "",
-      "transType": "costs",
-      "id": 16
-    },
-    {
-      "date": "2022-05-10",
       "time": "15:34",
       "category": "різне",
       "sum": "",
@@ -191,6 +171,16 @@
       "comment": "",
       "transType": "costs",
       "id": 20
+    },
+    {
+      "date": "2022-05-18",
+      "time": "15:17",
+      "category": "різне",
+      "sum": "",
+      "currency": "UAH",
+      "comment": "",
+      "transType": "costs",
+      "id": 21
     }
   ],
   "incomesCats": [

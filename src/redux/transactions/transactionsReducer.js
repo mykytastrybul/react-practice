@@ -1,24 +1,24 @@
 import { combineReducers, createReducer } from "@reduxjs/toolkit";
 import {
-  addCosts,
-  addIncomes,
-  getCosts,
-  getIncomes,
-  removeCosts,
-  removeIncomes,
+  addCostsSuccess,
+  addIncomesSuccess,
+  getCostsSuccess,
+  getIncomesSuccess,
+  removeCostsSuccess,
+  removeIncomesSuccess,
 } from "./transactionsActions";
 
 const costsReducer = createReducer([], {
-  [getCosts]: (_, { payload }) => payload,
-  [addCosts]: (state, { payload }) => [...state, payload],
-  [removeCosts]: (state, { payload }) =>
+  [getCostsSuccess]: (_, { payload }) => payload,
+  [addCostsSuccess]: (state, { payload }) => [...state, payload],
+  [removeCostsSuccess]: (state, { payload }) =>
     state.filter((el) => el.id !== payload),
 });
 
 const incomesReducer = createReducer([], {
-  [getIncomes]: (_, { payload }) => payload,
-  [addIncomes]: (state, { payload }) => [...state, payload],
-  [removeIncomes]: (state, { payload }) =>
+  [getIncomesSuccess]: (_, { payload }) => payload,
+  [addIncomesSuccess]: (state, { payload }) => [...state, payload],
+  [removeIncomesSuccess]: (state, { payload }) =>
     state.filter((el) => el.id !== payload),
 });
 

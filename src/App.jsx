@@ -1,46 +1,25 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
-import { useLoaderContext } from "./context/LoaderProvider";
-import { getCategoriesApi, getTransactionsApi } from "./utils/apiService";
-import { getCosts, getIncomes } from "./redux/transactions/transactionsActions";
+import { getCategoriesApi } from "./utils/apiService";
 import {
   getCostsCats,
   getIncomesCats,
 } from "./redux/categories/categoriesSlice";
+import { getTransactions } from "./redux/transactions/transactionOperations";
 
 const App = () => {
   const dispatch = useDispatch();
-  const setIsLoading = useLoaderContext();
 
   useEffect(() => {
-    const getTransactions = async () => {
-      setIsLoading(true);
-      try {
-        try {
-          const costs = await getTransactionsApi("costs");
-          dispatch(getCosts(costs));
-        } catch (error) {
-          console.log(error);
-        }
-        try {
-          const incomes = await getTransactionsApi("incomes");
-          dispatch(getIncomes(incomes));
-        } catch (error) {
-          console.log(error);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getTransactions();
-  }, []);
+    dispatch(getTransactions("costs"));
+    dispatch(getTransactions("incomes"));
+  }, [dispatch]);
 
   useEffect(() => {
     const getCategories = async () => {
-      setIsLoading(true);
       try {
         await getCategoriesApi({ transType: "incomes" }).then((res) =>
           dispatch(getIncomesCats(res))
@@ -50,8 +29,6 @@ const App = () => {
         );
       } catch (err) {
         console.error(err);
-      } finally {
-        setIsLoading(false);
       }
     };
     getCategories();
