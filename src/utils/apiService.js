@@ -22,3 +22,7 @@ export function addCategoryApi({ transType, category }) {
 export function getCategoriesApi({ transType }) {
   return axios.get(transType + "Cats").then(({ data }) => data);
 }
+
+export function removeCategoryApi({ transType, id }) {
+  return axios.delete(transType + "Cats/" + id);
+}

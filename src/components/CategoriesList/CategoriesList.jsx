@@ -5,11 +5,10 @@ import ButtonWithIcon from "../shared/ButtonWithIcon/ButtonWithIcon";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategoryApi } from "../../utils/apiService";
 import {
-  addCostsCats,
-  addIncomesCats,
-} from "../../redux/categories/categoriesSlice";
+  addCostsCategory,
+  addIncomesCategory,
+} from "../../redux/categories/categoriesOperations";
 
 const CategoriesList = ({ setCategory }) => {
   const dispatch = useDispatch();
@@ -23,10 +22,8 @@ const CategoriesList = ({ setCategory }) => {
   };
 
   const addCategory = ({ transType, category }) => {
-    addCategoryApi({ transType, category }).then((category) => {
-      transType === "incomes" && dispatch(addIncomesCats(category));
-      transType === "costs" && dispatch(addCostsCats(category));
-    });
+    transType === "incomes" && dispatch(addIncomesCategory(category));
+    transType === "costs" && dispatch(addCostsCategory(category));
   };
 
   const handleSubmit = (e) => {

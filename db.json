@@ -199,6 +199,10 @@
     {
       "title": "Category 4",
       "id": 4
+    },
+    {
+      "title": "Category 5",
+      "id": 5
     }
   ],
   "costsCats": [
@@ -217,6 +221,14 @@
     {
       "title": "Category 4",
       "id": 4
+    },
+    {
+      "title": "Category 4.1",
+      "id": 5
+    },
+    {
+      "title": "Category 3.3.5a",
+      "id": 6
     }
   ]
 }
