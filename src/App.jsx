@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
 import TransactionsHistoryPage from "./components/TransactionsHistoryPage/TransactionsHistoryPage";
@@ -8,9 +8,11 @@ import {
   getCostsCategories,
   getIncomesCategories,
 } from "./redux/categories/categoriesOperations";
+import RegisterPage from "./page/RegisterPage";
 
 const App = () => {
   const dispatch = useDispatch();
+  const isAuth = useSelector((state) => Boolean(state.auth.idToken));
 
   useEffect(() => {
     dispatch(getTransactions("costs"));
@@ -23,13 +25,24 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="/*" element={<MainPage />} />
-      <Route
-        path="/transactions/:transType"
-        element={<TransactionsHistoryPage />}
-      />
-    </Routes>
+    <>
+      <Routes>
+        {isAuth ? (
+          <>
+            <Route path="/*" element={<MainPage />} />
+            <Route
+              path="/transactions/:transType"
+              element={<TransactionsHistoryPage />}
+            />
+          </>
+        ) : (
+          <>
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<h1>LoginPage</h1>} />
+          </>
+        )}
+      </Routes>
+    </>
   );
 };
 
