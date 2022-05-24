@@ -5,20 +5,23 @@ import App from "./App";
 import CategoriesProvider from "./context/CategoriesProvider";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { persistor, store } from "./redux/store";
 import LoaderWrapper from "./components/LoaderWrapper/LoaderWrapper";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <CategoriesProvider>
-      <BrowserRouter>
-        <LoaderWrapper>
-          <App />
-        </LoaderWrapper>
-      </BrowserRouter>
-    </CategoriesProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <CategoriesProvider>
+        <BrowserRouter>
+          <LoaderWrapper>
+            <App />
+          </LoaderWrapper>
+        </BrowserRouter>
+      </CategoriesProvider>
+    </PersistGate>
   </Provider>
   // </React.StrictMode>
 );

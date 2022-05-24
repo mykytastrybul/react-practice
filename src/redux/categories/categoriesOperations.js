@@ -8,7 +8,7 @@ export const getCostsCategories = createAsyncThunk(
       const categories = await getCategoriesApi({ transType: "costs" });
       return categories;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -20,7 +20,7 @@ export const getIncomesCategories = createAsyncThunk(
       const categories = await getCategoriesApi({ transType: "incomes" });
       return categories;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -32,7 +32,7 @@ export const addCostsCategory = createAsyncThunk(
       const categories = await addCategoryApi({ transType: "costs", category });
       return categories;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -47,7 +47,7 @@ export const addIncomesCategory = createAsyncThunk(
       });
       return categories;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

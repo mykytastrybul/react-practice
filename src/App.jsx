@@ -8,7 +8,7 @@ import {
   getCostsCategories,
   getIncomesCategories,
 } from "./redux/categories/categoriesOperations";
-import RegisterPage from "./page/RegisterPage";
+import AuthPage from "./page/AuthPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,8 +37,8 @@ const App = () => {
           </>
         ) : (
           <>
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<h1>LoginPage</h1>} />
+            <Route path="/:authType" element={<AuthPage />} />
+            {/* <Route path="/login" element={<h1>LoginPage</h1>} /> */}
           </>
         )}
       </Routes>

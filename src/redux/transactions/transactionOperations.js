@@ -24,10 +24,12 @@ import {
   removeIncomesSuccess,
 } from "./transactionsActions";
 
-export const getTransactions = (transType) => (dispatch) => {
+export const getTransactions = (transType) => (dispatch, getState) => {
+  const { localId, idToken } = getState().auth;
+
   transType === "costs" && dispatch(getCostsRequest());
   transType === "incomes" && dispatch(getIncomesRequest());
-  getTransactionsApi(transType)
+  getTransactionsApi({ transType, localId, idToken })
     .then((transactions) => {
       transType === "costs" && dispatch(getCostsSuccess(transactions));
       transType === "incomes" && dispatch(getIncomesSuccess(transactions));
@@ -38,11 +40,12 @@ export const getTransactions = (transType) => (dispatch) => {
     });
 };
 
-export const addTransaction = (transaction) => (dispatch) => {
+export const addTransaction = (transaction) => (dispatch, getState) => {
+  const { localId, idToken } = getState().auth;
   const { transType } = transaction;
   transType === "costs" && dispatch(addCostsRequest());
   transType === "incomes" && dispatch(addIncomesRequest());
-  addTransactionApi(transaction)
+  addTransactionApi({ transaction, localId, idToken })
     .then((transaction) => {
       transType === "costs" && dispatch(addCostsSuccess(transaction));
       transType === "incomes" && dispatch(addIncomesSuccess(transaction));

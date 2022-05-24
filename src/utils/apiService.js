@@ -1,14 +1,41 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:4040";
+// axios.defaults.baseURL = "http://localhost:4040";
+const url = {
+  auth: "https://identitytoolkit.googleapis.com/v1/",
+  db: "https://wallet-react-practice-default-rtdb.firebaseio.com/",
+};
 
-export function getTransactionsApi(transType) {
-  return axios.get(transType).then(({ data }) => data);
+const endpoint = {
+  register: "accounts:signUp",
+  login: "accounts:signInWithPassword",
+};
+
+const apiKey = "AIzaSyDCFT02bDJCY4LTj4X3EZH_FHR7rneEzJ0";
+
+const setBaseUrl = (url) => (axios.defaults.baseURL = url);
+//"https://wallet-react-practice-default-rtdb.firebaseio.com/users/localId/name.json?auth=<ID_TOKEN>"
+
+export function getTransactionsApi({ transType, localId, idToken }) {
+  setBaseUrl(url.db);
+  return axios
+    .get(`users/${localId}/${transType}.json?auth=${idToken}`)
+    .then(({ data }) =>
+      data
+        ? Object.entries(data).map(([id, transaction]) => ({
+            ...transaction,
+            id,
+          }))
+        : []
+    );
 }
-
-export function addTransactionApi(transaction) {
+//[[key,value],]
+export function addTransactionApi({ transaction, localId, idToken }) {
+  setBaseUrl(url.db);
   const { transType } = transaction;
-  return axios.post(transType, transaction).then(({ data }) => data);
+  return axios
+    .post(`users/${localId}/${transType}.json?auth=${idToken}`, transaction)
+    .then(({ data }) => ({ ...transaction, id: data.name }));
 }
 
 export function removeTransactionApi({ transType, id }) {
@@ -27,17 +54,6 @@ export function removeCategoryApi({ transType, id }) {
   return axios.delete(transType + "Cats/" + id);
 }
 
-const url = {
-  auth: "https://identitytoolkit.googleapis.com/v1/",
-};
-
-const endpoint = {
-  register: "accounts:signUp",
-  login: "accounts:signInWithPassword",
-};
-
-const apiKey = "AIzaSyDCFT02bDJCY4LTj4X3EZH_FHR7rneEzJ0";
-
 export function registerUserApi({ email, password }) {
   axios.defaults.baseURL = url.auth;
   axios.defaults.params = {
@@ -46,4 +62,21 @@ export function registerUserApi({ email, password }) {
   return axios
     .post(endpoint.register, { email, password, returnSecureToken: true })
     .then(({ data }) => data);
+}
+
+export function loginUserApi({ email, password }) {
+  axios.defaults.baseURL = url.auth;
+  axios.defaults.params = {
+    key: apiKey,
+  };
+  return axios
+    .post(endpoint.login, {
+      email,
+      password,
+      returnSecureToken: true,
+    })
+    .then(({ data }) => {
+      const { localId, email, idToken } = data;
+      return { localId, email, idToken };
+    });
 }

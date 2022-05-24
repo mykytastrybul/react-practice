@@ -2,7 +2,6 @@
   "name": "practice",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://s3bull.github.io/react-practice/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -17,6 +16,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
     "sass": "^1.51.0",
     "shortid": "^2.2.16",
     "web-vitals": "^2.1.4"
